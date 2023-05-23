@@ -1,9 +1,9 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WahrheitstabellenReader {
     public static List<String> wahrheitstabelleAusMarkdown(String dateipfad) {
@@ -36,46 +36,39 @@ public class WahrheitstabellenReader {
         return array;
     }
 
-    public static List<List<String>> mmbue(List<List<String>> table) {
-        List<List<String>> significant = new ArrayList<>();
+    public static void verarbeiteDateienImOrdner(String ordnerpfad, String methode) {
+        Algorithmen algorithmen = new Algorithmen();
+        File ordner = new File(ordnerpfad);
 
-        for (int i = 0; i < table.size(); i++) {
-            List<String> tmpZeile = table.get(i);
+        if (ordner.isDirectory()) {
+            File[] dateien = ordner.listFiles();
 
-            for (int j = 0; j < tmpZeile.size() - 1; j++) {
-                List<String> newTmpZeile = new ArrayList<>(tmpZeile);
-
-                if (newTmpZeile.get(j).equals("0")) {
-                    newTmpZeile.set(j, "1");
-                } else {
-                    newTmpZeile.set(j, "0");
-                }
-                for (List<String> s : table) {
-                    if (s.subList(0, s.size()-1).equals(newTmpZeile.subList(0, newTmpZeile.size()-1)) && !(s.subList(s.size()-1, s.size()).equals(newTmpZeile.subList(newTmpZeile.size()-1, newTmpZeile.size())))){
-                        significant.add(tmpZeile);
+            if (dateien != null) {
+                for (File datei : dateien) {
+                    // Überprüfe, ob es sich um eine Datei handelt
+                    switch (methode){
+                        case "mmbü":
+                            if (datei.isFile()) {
+                                algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath())));
+                                System.out.println("Verarbeite Datei: " + datei.getName());
+                                writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath()))));
+                            }
+                            break;
+                        case "mcdc":
+                            if (datei.isFile()) {
+                                algorithmen.mcdc();
+                                System.out.println("Verarbeite Datei: " + datei.getName());
+                                //writeToMarkdown(mcdc());
+                            }
+                            break;
                     }
+
                 }
             }
         }
-        //problem for future us: duplicates
-        return significant.stream().distinct().collect(Collectors.toList());
     }
 
-    public boolean isSignificant (List<List<String>> table){
-        boolean significant = false;
-
-        return significant;
-    }
-
-    public static void mcdc(){
-        //Anzahl Spalten überprüfen und Minus eins rechnen für Condition
-        // alle außer eine fixieren
-        //ähnliches Muster suchen, wo sich nicht fixierte ändert und überprüfen, ob Condition ändert
-        //wenn ja -> signifikante
-        //wenn nein -> ignorieren
-    }
-
-    public static void writeToMarkdown(List<List<String>> table, String dateipfad){
+    public static void writeToMarkdown(List<List<String>> table){
         System.out.println("| --- | --- | --- | --- |");
         for (int i = 0; i < table.size(); i++) {
             List<String> tmpZeile = table.get(i);
@@ -98,9 +91,10 @@ public class WahrheitstabellenReader {
     }
 
     public static void main(String[] args) {
-        //tabelleAnzeigen(wahrheitstabelleAusMarkdown("src/exercises/exercise1.md"));
-        System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md")));
-        System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
-        writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
+        //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md")));
+        //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
+        //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
+        Algorithmen algorithmen = new Algorithmen();
+        verarbeiteDateienImOrdner("src/exercises", "mmbü");
     }
 }
