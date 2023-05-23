@@ -75,15 +75,20 @@ public class WahrheitstabellenReader {
         //wenn nein -> ignorieren
     }
 
-
-
-
     public static void writeToMarkdown(List<List<String>> table, String dateipfad){
-
+        System.out.println("| --- | --- | --- | --- |");
+        for (int i = 0; i < table.size(); i++) {
+            List<String> tmpZeile = table.get(i);
+            System.out.print("|  ");
+            for (int j = 0; j < tmpZeile.size(); j++) {
+                if (j == tmpZeile.size()-1){
+                    System.out.println(tmpZeile.get(j) + " |");
+                } else {
+                    System.out.print(tmpZeile.get(j) + " |  ");
+                }
+            }
+        }
     }
-
-
-
 
     public static void tabelleAnzeigen(List<String> tabelle){
         for (String zeile : tabelle) {
@@ -96,5 +101,6 @@ public class WahrheitstabellenReader {
         //tabelleAnzeigen(wahrheitstabelleAusMarkdown("src/exercises/exercise1.md"));
         System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md")));
         System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
+        writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
     }
 }
