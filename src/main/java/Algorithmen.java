@@ -34,11 +34,68 @@ public class Algorithmen {
         return significant;
     }
 
-    public void mcdc(){
-        //Anzahl Spalten überprüfen und Minus eins rechnen für Condition
-        // alle außer eine fixieren
-        //ähnliches Muster suchen, wo sich nicht fixierte ändert und überprüfen, ob Condition ändert
-        //wenn ja -> signifikante
-        //wenn nein -> ignorieren
+    public List<List<String>> mcdc(List<List<String>> tabelle) {
+        //System.out.println(tabelle);
+
+        //Liste für Signifikante Paare
+        List<List<String>> significantPairs = new ArrayList<>();
+
+        //int signifikante = 0;
+
+        //Jetzt müssen Paare gefunden werden,
+        // die die gleichen anderen atomaren Bedingungen haben,
+        // aber die eine anders
+        // und die Condition jeweils anders ist
+        //------------------------------------------------------
+
+        for(int signifikante = 0; signifikante < tabelle.get(0).size()-1; signifikante++) {
+
+
+            //Betrachtung Signifikante 1 in allen Zeilen
+            //System.out.println("Signifikante " + signifikante);
+
+            boolean paarFound = false;
+
+            //hier wird durch jede Zeile gegangen also ins erste Array
+            for (int i = 0; i < tabelle.size(); i++) {
+                //System.out.println("----------Neue-Zeile----------");
+
+                // ein paar wurde bereits gefunden
+                if(paarFound == true){
+
+                }else{
+                    List<String> tmpZeile = tabelle.get(i); //derzeitige Zeile
+                    List<String> newTmpZeile = new ArrayList<>(tmpZeile); //derzeitige veränderte Zeile
+
+
+                    if (newTmpZeile.get(signifikante).equals("0")) {
+                        newTmpZeile.set(signifikante, "1");
+                    } else {
+                        newTmpZeile.set(signifikante, "0");
+                    }
+
+                    //hier muss nach den richtigen Paaren gesucht werden
+                    for (List<String> s : tabelle) {
+
+                        List<String> derzeitigeZeileDerTabelle = s.subList(0, s.size()-1); //ohne Condition
+                        List<String> derzeitigeZeileDerTabelleCondition = s.subList(s.size()-1, s.size());
+
+                        List<String> derzeitigeBetrachteteVeränderteZeile = newTmpZeile.subList(0, newTmpZeile.size()-1); //ohne Condition
+                        List<String> derzeitigeBetrachteteVeränderteZeileCondition = newTmpZeile.subList(newTmpZeile.size()-1, newTmpZeile.size());
+
+                        if (derzeitigeZeileDerTabelle.equals(derzeitigeBetrachteteVeränderteZeile) //gleiches Aussehen der Zeilen ohne Condition
+                                && !(derzeitigeZeileDerTabelleCondition.equals(derzeitigeBetrachteteVeränderteZeileCondition))){ //Condition stimmt nicht überein
+
+                            significantPairs.add(tmpZeile);
+                            //System.out.println(tmpZeile);
+                            significantPairs.add(s);
+                            //System.out.println(s);
+                            paarFound = true;
+                        }
+                    }
+                }
+            }
+        }
+        return significantPairs.stream().distinct().collect(Collectors.toList());
     }
 }

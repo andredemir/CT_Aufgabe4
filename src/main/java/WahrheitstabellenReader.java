@@ -56,9 +56,9 @@ public class WahrheitstabellenReader {
                             break;
                         case "mcdc":
                             if (datei.isFile()) {
-                                algorithmen.mcdc();
+                                algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath())));
                                 System.out.println("Verarbeite Datei: " + datei.getName());
-                                //writeToMarkdown(mcdc());
+                                writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath()))));
                             }
                             break;
                     }
@@ -91,10 +91,14 @@ public class WahrheitstabellenReader {
     }
 
     public static void main(String[] args) {
-        //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md")));
+        //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
         //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
         //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
         Algorithmen algorithmen = new Algorithmen();
-        verarbeiteDateienImOrdner("src/exercises", "mmbü");
+        //verarbeiteDateienImOrdner("src/exercises", "mmbü");
+
+
+        verarbeiteDateienImOrdner("src/exercises", "mcdc");
+        //algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
     }
 }
