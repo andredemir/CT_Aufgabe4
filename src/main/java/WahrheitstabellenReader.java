@@ -106,13 +106,6 @@ public class WahrheitstabellenReader {
         }
     }
 
-    public static void tabelleAnzeigen(List<String> tabelle){
-        for (String zeile : tabelle) {
-            String tmp = zeile.replaceAll("[\\s|]", "");
-            System.out.println(tmp);
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
         //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));

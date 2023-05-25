@@ -28,16 +28,10 @@ public class Algorithmen {
         return significant.stream().distinct().collect(Collectors.toList());
     }
 
-    public boolean isSignificant (List<List<String>> table){
-        boolean significant = false;
-
-        return significant;
-    }
-
     public List<List<String>> mcdc(List<List<String>> tabelle) {
         //System.out.println(tabelle);
 
-        //Liste für Signifikante Paare
+        //Liste für signifikante Paare
         List<List<String>> significantPairs = new ArrayList<>();
 
         //int signifikante = 0;
@@ -48,7 +42,7 @@ public class Algorithmen {
         // und die Condition jeweils anders ist
         //------------------------------------------------------
 
-        for(int signifikante = 0; signifikante < tabelle.get(0).size()-1; signifikante++) {
+        for (int signifikante = 0; signifikante < tabelle.get(0).size() - 1; signifikante++) {
 
 
             //Betrachtung Signifikante 1 in allen Zeilen
@@ -61,12 +55,11 @@ public class Algorithmen {
                 //System.out.println("----------Neue-Zeile----------");
 
                 // ein paar wurde bereits gefunden
-                if(paarFound == true){
-
-                }else{
+                if (paarFound) {
+                    //Was wird dann gemacht?
+                } else {
                     List<String> tmpZeile = tabelle.get(i); //derzeitige Zeile
                     List<String> newTmpZeile = new ArrayList<>(tmpZeile); //derzeitige veränderte Zeile
-
 
                     if (newTmpZeile.get(signifikante).equals("0")) {
                         newTmpZeile.set(signifikante, "1");
@@ -77,14 +70,14 @@ public class Algorithmen {
                     //hier muss nach den richtigen Paaren gesucht werden
                     for (List<String> s : tabelle) {
 
-                        List<String> derzeitigeZeileDerTabelle = s.subList(0, s.size()-1); //ohne Condition
-                        List<String> derzeitigeZeileDerTabelleCondition = s.subList(s.size()-1, s.size());
+                        List<String> derzeitigeZeileDerTabelle = s.subList(0, s.size() - 1); //ohne Condition
+                        List<String> derzeitigeZeileDerTabelleCondition = s.subList(s.size() - 1, s.size());
 
-                        List<String> derzeitigeBetrachteteVeränderteZeile = newTmpZeile.subList(0, newTmpZeile.size()-1); //ohne Condition
-                        List<String> derzeitigeBetrachteteVeränderteZeileCondition = newTmpZeile.subList(newTmpZeile.size()-1, newTmpZeile.size());
+                        List<String> derzeitigeBetrachteteVeraenderteZeile = newTmpZeile.subList(0, newTmpZeile.size() - 1); //ohne Condition
+                        List<String> derzeitigeBetrachteteVeraenderteZeileCondition = newTmpZeile.subList(newTmpZeile.size() - 1, newTmpZeile.size());
 
-                        if (derzeitigeZeileDerTabelle.equals(derzeitigeBetrachteteVeränderteZeile) //gleiches Aussehen der Zeilen ohne Condition
-                                && !(derzeitigeZeileDerTabelleCondition.equals(derzeitigeBetrachteteVeränderteZeileCondition))){ //Condition stimmt nicht überein
+                        if (derzeitigeZeileDerTabelle.equals(derzeitigeBetrachteteVeraenderteZeile) //gleiches Aussehen der Zeilen ohne Condition
+                                && !(derzeitigeZeileDerTabelleCondition.equals(derzeitigeBetrachteteVeraenderteZeileCondition))) { //Condition stimmt nicht überein
 
                             significantPairs.add(tmpZeile);
                             //System.out.println(tmpZeile);
