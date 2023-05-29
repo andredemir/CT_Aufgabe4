@@ -85,6 +85,9 @@ public class WahrheitstabellenReader {
                                 }
                             }
                             break;
+                        default:
+                            System.out.println("Datei nicht vorhanden");
+                            break;
                     }
 
                 }
@@ -105,28 +108,6 @@ public class WahrheitstabellenReader {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
-        //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
-        //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
-
-        Algorithmen algorithmen = new Algorithmen();
-
-        /*System.out.println("--------------------------------------");
-        System.out.println("MMBÜ: ");
-        verarbeiteDateienImOrdner("src/exercises", "mmbü");
-        System.out.println("--------------------------------------");
-        System.out.println("MCDC: ");
-        verarbeiteDateienImOrdner("src/exercises", "mcdc");
-        System.out.println("--------------------------------------");*/
-
-        //für System.out.println einkommentieren in Algorithmen bei mcdc
-        //algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
-
-        userEingabe(algorithmen);
-
     }
 
     public static void userEingabe(Algorithmen algorithmen){
@@ -222,6 +203,7 @@ public class WahrheitstabellenReader {
                 // "C:/Users/Carina/Desktop/exercise1.md"
                 System.out.print("Geben Sie Ihre Datei ein: ");
                 String dateiMeins = eingabewert.nextLine();
+                // todo: hier muss noch eine Überprüfung rein, ob die Datei existiert
                 einzelneDatei(dateiMeins, coverage, algorithmen);
                 break;
 
@@ -234,28 +216,24 @@ public class WahrheitstabellenReader {
     }
 
     private static String dateiAuswahl(int datei) {
-        String antwort = "existiert nicht";
-
-        switch (datei) {
-            case 1: antwort = "src/exercises/ex0.md"; break;
-            case 2: antwort = "src/exercises/ex1.md"; break;
-            case 3: antwort = "src/exercises/ex2.md"; break;
-            case 4: antwort = "src/exercises/ex3.md"; break;
-            case 5: antwort = "src/exercises/ex4.md"; break;
-            case 6: antwort = "src/exercises/ex5.md"; break;
-            case 7: antwort = "src/exercises/ex6.md"; break;
-            case 8: antwort = "src/exercises/ex7.md"; break;
-            case 9: antwort = "src/exercises/exercise1.md"; break;
-            case 10: antwort = "src/exercises/exercise2.md"; break;
-            case 11: antwort = "src/exercises/exercise22b.md"; break;
-            case 12: antwort = "src/exercises/leererFehler.md"; break;
-        }
-
-        return antwort;
+        return switch (datei) {
+            case 1 -> "src/exercises/ex0.md";
+            case 2 -> "src/exercises/ex1.md";
+            case 3 -> "src/exercises/ex2.md";
+            case 4 -> "src/exercises/ex3.md";
+            case 5 -> "src/exercises/ex4.md";
+            case 6 -> "src/exercises/ex5.md";
+            case 7 -> "src/exercises/ex6.md";
+            case 8 -> "src/exercises/ex7.md";
+            case 9 -> "src/exercises/exercise1.md";
+            case 10 -> "src/exercises/exercise2.md";
+            case 11 -> "src/exercises/exercise22b.md";
+            case 12 -> "src/exercises/leererFehler.md";
+            default -> "existiert nicht";
+        };
     }
 
     private static void einzelneDatei(String datei, String coverage, Algorithmen algorithmen){
-
         if(coverage.equals("mcdc")){
             System.out.println("--------------------------------------");
             System.out.println("MCDC " + "der Datei " + datei);
@@ -282,5 +260,26 @@ public class WahrheitstabellenReader {
             System.out.println("--------------------------------------");
         }
 
+    }
+
+    public static void main(String[] args) {
+        //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
+        //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
+        //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
+
+        Algorithmen algorithmen = new Algorithmen();
+
+        /*System.out.println("--------------------------------------");
+        System.out.println("MMBÜ: ");
+        verarbeiteDateienImOrdner("src/exercises", "mmbü");
+        System.out.println("--------------------------------------");
+        System.out.println("MCDC: ");
+        verarbeiteDateienImOrdner("src/exercises", "mcdc");
+        System.out.println("--------------------------------------");*/
+
+        //für System.out.println einkommentieren in Algorithmen bei mcdc
+        //algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
+
+        userEingabe(algorithmen);
     }
 }

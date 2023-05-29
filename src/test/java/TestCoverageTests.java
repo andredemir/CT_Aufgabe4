@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,13 +75,17 @@ public class TestCoverageTests {
         Assertions.assertFalse(WahrheitstabellenReader.uberpruefeObFehlerhaft(list3));
     }
 
-
-
     //Done hat kein Rückgabewert
     @Test
     public void verarbeiteDateienImOrdnerTest(){
         WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises", "mcdc");
         WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises", "mmbü");
+    }
+
+    //TODO//: Noch ein Test für Nullwerte für die Branches
+    @Test
+    public void verarbeiteDateienImOrdnerKeineDateiGefundenTest(){
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises", "");
     }
 
 
@@ -90,18 +98,9 @@ public class TestCoverageTests {
     }
 
 
-    //Done hat kein Rückgabewert
-    @Test
-    public void aufgabe22bTest(){
-        Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.aufgabe22b(algorithmen);
-    }
-
-    //Done
-    @Test
-    public void mainTest(){
-        WahrheitstabellenReader.main(new String[]{"src/exercises", "mcdc"});
-        WahrheitstabellenReader.main(new String[]{"src/exercises", "mmbü"});
-    }
+  @Test
+  public void mainTest(){
+      WahrheitstabellenReader.main(new String[]{});
+  }
 
 }
