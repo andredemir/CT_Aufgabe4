@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +140,55 @@ public class TestCoverageTests {
         Algorithmen algorithmen = new Algorithmen();
         WahrheitstabellenReader.writeToMarkdown(algorithmen.mmbue(WahrheitstabellenReader.create2DArrayList(WahrheitstabellenReader.wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
         WahrheitstabellenReader.writeToMarkdown(algorithmen.mcdc(WahrheitstabellenReader.create2DArrayList(WahrheitstabellenReader.wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+    }
+
+
+    @Test
+    public void userEingabeTestMitFehlerhafteEingabe(){
+            // Erzeuge eine Instanz von Algorithmen für den Testfall
+            Algorithmen algorithmen = new Algorithmen(/* Vordefinierte Werte */);
+
+            // Definiere die gewünschten Eingabewerte für den Testfall
+            String eingabe = "5";
+
+            // Leite die Standardeingabe um, um die vordefinierte Eingabe bereitzustellen
+            InputStream inputStream = new ByteArrayInputStream(eingabe.getBytes());
+            System.setIn(inputStream);
+
+            // Rufe die userEingabe-Methode auf
+            WahrheitstabellenReader.userEingabe(algorithmen);
+    }
+
+    @Test
+    public void userEingabeTestNeustart(){
+        // Erzeuge eine Instanz von Algorithmen für den Testfall
+        Algorithmen algorithmen = new Algorithmen(/* Vordefinierte Werte */);
+
+        // Definiere die gewünschten Eingabewerte für den Testfall
+        String eingabe = "1\n2\n1\n1\n2\n2";
+
+        // Leite die Standardeingabe um, um die vordefinierte Eingabe bereitzustellen
+        InputStream inputStream = new ByteArrayInputStream(eingabe.getBytes());
+        System.setIn(inputStream);
+
+        // Rufe die userEingabe-Methode auf
+        WahrheitstabellenReader.userEingabe(algorithmen);
+    }
+
+    @Test
+    public void userEingabeNormalerAblaufTest(){
+        // Erzeuge eine Instanz von Algorithmen für den Testfall
+        Algorithmen algorithmen = new Algorithmen(/* Vordefinierte Werte */);
+
+        // Definiere die gewünschten Eingabewerte für den Testfall
+        String eingabe = "1\n2\n2";
+
+        // Leite die Standardeingabe um, um die vordefinierte Eingabe bereitzustellen
+        InputStream inputStream = new ByteArrayInputStream(eingabe.getBytes());
+        System.setIn(inputStream);
+
+        // Rufe die userEingabe-Methode auf
+        WahrheitstabellenReader.userEingabe(algorithmen);
     }
 
   //@Test
