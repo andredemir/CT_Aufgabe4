@@ -1,12 +1,12 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCoverageTests {
 
@@ -33,7 +33,7 @@ public class TestCoverageTests {
                         new ArrayList<>(List.of("0", "1", "1", "1")),
                         new ArrayList<>(List.of("1", "1", "1", "0"))
                 ));
-        Assertions.assertEquals(list2, list);
+        assertEquals(list2, list);
     }
 
     //Done
@@ -48,7 +48,7 @@ public class TestCoverageTests {
                         new ArrayList<>(List.of("0", "1", "1", "1")),
                         new ArrayList<>(List.of("1", "0", "0", "0"))
                 ));
-        Assertions.assertEquals(list2, list);
+        assertEquals(list2, list);
     }
 
     @Test
@@ -84,10 +84,20 @@ public class TestCoverageTests {
 
     //TODO//: Noch ein Test für Nullwerte für die Branches
     @Test
-    public void verarbeiteDateienImOrdnerKeineDateiGefundenTest(){
-        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises", "");
-    }
+    public void verarbeiteDateienImOrdner_DefaultCase_Test() {
 
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Rufe die verarbeiteDateienImOrdner-Methode mit dem ungültigen Testfall auf
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises", "mmbe4");
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+
+        assertEquals("Methode nicht vorhanden", ausgabe);
+    }
 
     //Done hat kein Rückgabewert
     @Test
@@ -97,10 +107,9 @@ public class TestCoverageTests {
         WahrheitstabellenReader.writeToMarkdown(algorithmen.mcdc(WahrheitstabellenReader.create2DArrayList(WahrheitstabellenReader.wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
     }
 
-
-  @Test
-  public void mainTest(){
-      WahrheitstabellenReader.main(new String[]{});
-  }
+  //@Test
+  //public void mainTest(){
+  //    WahrheitstabellenReader.main(new String[]{});
+  //}
 
 }

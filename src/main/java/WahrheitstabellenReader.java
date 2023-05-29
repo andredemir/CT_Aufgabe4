@@ -86,8 +86,8 @@ public class WahrheitstabellenReader {
                             }
                             break;
                         default:
-                            System.out.println("Datei nicht vorhanden");
-                            break;
+                            System.out.println("Methode nicht vorhanden");
+                            return;
                     }
 
                 }
