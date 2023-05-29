@@ -132,38 +132,41 @@ public class WahrheitstabellenReader {
     public static void userEingabe(Algorithmen algorithmen){
 
         Scanner eingabewert = new Scanner(System.in);
-        System.out.println("--------------------------------------");
-        System.out.println("Geben Sie die entsprechende Zahl ein für die Aktion, die Sie ausführen möchten.");
-        System.out.println(" 1 - Ausführen des MMBÜ \n 2 - Ausführen des MCDC \n 3 - Ausführen beider Coverage-Maßen");
+
+        System.out.println("-------------------------------------- " +
+                "\nGeben Sie die entsprechende Zahl ein für die Aktion, die Sie ausführen möchten." +
+                "\n 1 - Ausführen des MMBÜ " +
+                "\n 2 - Ausführen des MCDC " +
+                "\n 3 - Ausführen beider Coverage-Maßen" +
+                "\n-------------------------------------- ");
         System.out.print("Geben Sie hier ihre Nummer ein: ");
         int nummerCoverage = eingabewert.nextInt();
-        System.out.println("--------------------------------------");
-
-        System.out.println("Geben Sie nun an die entsprechende Zahl ein für die Auswahl der Datei, die Sie ausführen möchten");
-        System.out.println(" 1 - Ausführen einer bestimmten Datei aus unserem System " +
+        System.out.println("--------------------------------------" +
+                "\nGeben Sie nun an die entsprechende Zahl ein für die Auswahl der Datei, die Sie ausführen möchten" +
+                "\n 1 - Ausführen einer bestimmten Datei aus unserem System " +
                 "\n 2 - Ausführen aller unserer Dateien im System \n 3 - Ausführen Ihrer Datei" +
-                "\n 4 - Ausführen der Aufgabe 2.2 b)");
+                "\n 4 - Ausführen der Aufgabe 2.2 b)"+
+                "\n-------------------------------------- ");
         System.out.print("Geben Sie hier ihre Nummer ein: ");
         int nummerDatei = eingabewert.nextInt();
-        System.out.println("--------------------------------------");
-        System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------\n--------------------------------------");
 
+        //Ab hier Ausgabe der jeweiligen Auswahl
         String coverage = eingabeCoverage(nummerCoverage);
         if(coverage.equals("existiert nicht")){
-            //Endpoint.
-            System.out.println("Sie haben eine falsche Nummer eingegeben. Vorgang wird abgebrochen.");
+            System.out.println("Sie haben etwas Falsches eingegeben. Vorgang wird abgebrochen.");
         }else{
             eingabeDatei(coverage, nummerDatei, algorithmen);
-            System.out.println("--------------------------------------");
-            System.out.println("Wählen Sie die nächste Aktion aus."); //neustart //beenden
-            System.out.println(" 1 - Neustart \n 2 - Beenden");
+            System.out.println("--------------------------------------" +
+                    "\nWählen Sie die nächste Aktion aus." +
+                    "\n 1 - Neustart \n 2 - Beenden");
             System.out.print("Geben Sie hier ihre Nummer ein: ");
             int nummerAktion = eingabewert.nextInt();
             if (nummerAktion == 1){
                 userEingabe(algorithmen);
             }else{
                 System.out.println("--------------------------------------");
-                System.out.println("------------System wird beendet-------------");
+                System.out.println("---------System wird beendet----------");
                 System.out.println("--------------------------------------");
             }
 
@@ -172,20 +175,16 @@ public class WahrheitstabellenReader {
 
     private static String eingabeCoverage(int nummerCoverage) {
         String antwort = "existiert nicht";
-
         switch (nummerCoverage){
             case 1: antwort = "mmbü"; break;
             case 2: antwort = "mcdc"; break;
             case 3: antwort = "beideCoverageMaßen"; break;
         }
-
         return antwort;
     }
 
     private static void eingabeDatei(String coverage, int nummerDatei, Algorithmen algorithmen){
-
         Scanner eingabewert = new Scanner(System.in);
-
         switch(nummerDatei){
             case 1:
                 System.out.println(" 1 - Ausführen von der Datei ex0.md" +
@@ -204,7 +203,7 @@ public class WahrheitstabellenReader {
                 int datei = eingabewert.nextInt();
                 String dateiString = dateiAuswahl(datei);
                 if(dateiString.equals("existiert nicht")){
-                    System.out.println("Sie haben eine falsche Nummer eingegeben. Vorgang wird abgebrochen.");
+                    System.out.println("Sie haben etwas Falsches eingegeben. Vorgang wird abgebrochen.");
                 }else{
                     einzelneDatei(dateiString, coverage, algorithmen);
                 }
