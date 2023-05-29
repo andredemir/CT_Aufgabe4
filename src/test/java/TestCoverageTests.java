@@ -1,12 +1,10 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -110,7 +108,7 @@ public class TestCoverageTests {
         System.setOut(new PrintStream(outputStream));
 
         // Rufe die verarbeiteDateienImOrdner-Methode mit dem ungültigen Testfall auf
-        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises/exercisesEmpty", "mmbü");
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises/leer", "mmbü");
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
@@ -142,58 +140,209 @@ public class TestCoverageTests {
         WahrheitstabellenReader.writeToMarkdown(algorithmen.mcdc(WahrheitstabellenReader.create2DArrayList(WahrheitstabellenReader.wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
     }
 
-
-    @Test
-    public void userEingabeTestMitFehlerhafteEingabe(){
-            // Erzeuge eine Instanz von Algorithmen für den Testfall
-            Algorithmen algorithmen = new Algorithmen(/* Vordefinierte Werte */);
-
-            // Definiere die gewünschten Eingabewerte für den Testfall
-            String eingabe = "5";
-
-            // Leite die Standardeingabe um, um die vordefinierte Eingabe bereitzustellen
-            InputStream inputStream = new ByteArrayInputStream(eingabe.getBytes());
-            System.setIn(inputStream);
-
-            // Rufe die userEingabe-Methode auf
-            WahrheitstabellenReader.userEingabe(algorithmen);
-    }
+  @Test
+  public void mainTest(){
+      WahrheitstabellenReader.main(new String[]{}, false);
+  }
 
     @Test
     public void userEingabeTestNeustart(){
-        // Erzeuge eine Instanz von Algorithmen für den Testfall
-        Algorithmen algorithmen = new Algorithmen(/* Vordefinierte Werte */);
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n4\n1\n1\n4\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+  @Test
+  public void userEingabeTestFehlerhafteEingabeCoverage(){
+      Algorithmen algorithmen = new Algorithmen();
+      Scanner scanner = new Scanner("6\n2"); //beenden
+      WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+      //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+  }
 
-        // Definiere die gewünschten Eingabewerte für den Testfall
-        String eingabe = "1\n2\n1\n1\n2\n2";
-
-        // Leite die Standardeingabe um, um die vordefinierte Eingabe bereitzustellen
-        InputStream inputStream = new ByteArrayInputStream(eingabe.getBytes());
-        System.setIn(inputStream);
-
-        // Rufe die userEingabe-Methode auf
-        WahrheitstabellenReader.userEingabe(algorithmen);
+    @Test
+    public void userEingabeTestFehlerhafteEingabeDateiImSystem(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n1\n13\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
     }
 
     @Test
-    public void userEingabeNormalerAblaufTest(){
-        // Erzeuge eine Instanz von Algorithmen für den Testfall
-        Algorithmen algorithmen = new Algorithmen(/* Vordefinierte Werte */);
-
-        // Definiere die gewünschten Eingabewerte für den Testfall
-        String eingabe = "1\n2\n2";
-
-        // Leite die Standardeingabe um, um die vordefinierte Eingabe bereitzustellen
-        InputStream inputStream = new ByteArrayInputStream(eingabe.getBytes());
-        System.setIn(inputStream);
-
-        // Rufe die userEingabe-Methode auf
-        WahrheitstabellenReader.userEingabe(algorithmen);
+    public void userEingabeTestEinzelneDateiAufrufBeiDateiImSystem(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n1\n1\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
     }
 
-  //@Test
-  //public void mainTest(){
-  //    WahrheitstabellenReader.main(new String[]{});
-  //}
+    @Test
+    public void userEingabeTestMMBUE(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n4\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTestMCDC(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("2\n4\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTestBeideCoverageMaße(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("3\n4\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTestBeideCoverageMaßeMitAllenDateienImSystem(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("3\n2\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTestCoverageMaßeMitAllenDateienImSystem(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n2\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTestCoverageMaßeMitEigenerDatei(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n3\nC:/Users/Carina/Desktop/exercise1.md\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTestCoverageMaßeMitEigenerFehlerhafterDatei(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n3\nC:/Users/Carina/Fesktop/exercise1.md\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void userEingabeTesteinzelneDateiFehlerMMBUe(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("1\n1\n4\n2"); //beenden
+        WahrheitstabellenReader.userEingabe(algorithmen, scanner);
+        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+    }
+
+    @Test
+    public void eingabeCoverageDefault(){
+        WahrheitstabellenReader.eingabeCoverage(7);
+    }
+
+    @Test
+    public void eingabeDateiDefault(){
+        Algorithmen algorithmen = new Algorithmen();
+        Scanner scanner = new Scanner("");
+        WahrheitstabellenReader.eingabeDatei("mmbü",7, algorithmen,scanner);
+    }
+
+    @Test
+    public void einzelneDateimmbUE(){
+        Algorithmen algorithmen = new Algorithmen();
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","mmbü", algorithmen);
+    }
+
+    @Test
+    public void einzelneDateiMCDC(){
+        Algorithmen algorithmen = new Algorithmen();
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","mcdc", algorithmen);
+    }
+
+    @Test
+    public void einzelneDateiBeide(){
+        Algorithmen algorithmen = new Algorithmen();
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","beideCoverageMaßen", algorithmen);
+    }
+
+    @Test
+    public void einzelneDateiNichts(){
+        Algorithmen algorithmen = new Algorithmen();
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","uff", algorithmen);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl1(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(1);
+        assertEquals("src/exercises/ex0.md",datei);
+    }
+    @Test
+    public void userEingabeTestDateiAuswahl2(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(2);
+        assertEquals("src/exercises/ex1.md",datei);
+    }
+    @Test
+    public void userEingabeTestDateiAuswahl3(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(3);
+        assertEquals("src/exercises/ex2.md",datei);
+    }
+    @Test
+    public void userEingabeTestDateiAuswahl4(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(4);
+        assertEquals("src/exercises/ex3.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl5(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(5);
+        assertEquals("src/exercises/ex4.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl6(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(6);
+        assertEquals("src/exercises/ex5.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl7(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(7);
+        assertEquals("src/exercises/ex6.md",datei);
+    }
+    @Test
+    public void userEingabeTestDateiAuswahl8(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(8);
+        assertEquals("src/exercises/ex7.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl9(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(9);
+        assertEquals("src/exercises/exercise1.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl10(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(10);
+        assertEquals("src/exercises/exercise2.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl11(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(11);
+        assertEquals("src/exercises/exercise22b.md",datei);
+    }
+
+    @Test
+    public void userEingabeTestDateiAuswahl12(){
+        String datei = WahrheitstabellenReader.dateiAuswahl(12);
+        assertEquals("src/exercises/leererFehler.md",datei);
+    }
+
 
 }
