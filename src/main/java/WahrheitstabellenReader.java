@@ -63,14 +63,14 @@ public class WahrheitstabellenReader {
         if (ordner.isDirectory()) {
             File[] dateien = ordner.listFiles();
 
-            if (dateien != null) {
+            if (dateien.length > 0) {
                 for (File datei : dateien) {
                     // Überprüfe, ob es sich um eine Datei handelt
                     switch (methode){
                         case "mmbü":
                             if (datei.isFile()) {
                                 System.out.println("Verarbeite Datei: " + datei.getName());
-                                if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath()))) == false){
+                                if(!uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath())))){
                                 algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath())));
                                 writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath()))));
                                 }
@@ -79,7 +79,7 @@ public class WahrheitstabellenReader {
                         case "mcdc":
                             if (datei.isFile()) {
                                 System.out.println("Verarbeite Datei: " + datei.getName());
-                                if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath()))) == false){
+                                if(!uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath())))){
                                     algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath())));
                                     writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(datei.getAbsolutePath()))));
                                 }
@@ -91,17 +91,20 @@ public class WahrheitstabellenReader {
                     }
 
                 }
+            }else {
+                System.out.println("Keine Dateien im Ordner vorhanden");
             }
+        }else {
+            System.out.println("Kein Ordner vorhanden");
         }
     }
 
     public static void writeToMarkdown(List<List<String>> table){
         System.out.println("| --- | --- | --- | --- |");
-        for (int i = 0; i < table.size(); i++) {
-            List<String> tmpZeile = table.get(i);
+        for (List<String> tmpZeile : table) {
             System.out.print("|  ");
             for (int j = 0; j < tmpZeile.size(); j++) {
-                if (j == tmpZeile.size()-1){
+                if (j == tmpZeile.size() - 1) {
                     System.out.println(tmpZeile.get(j) + " |");
                 } else {
                     System.out.print(tmpZeile.get(j) + " |  ");

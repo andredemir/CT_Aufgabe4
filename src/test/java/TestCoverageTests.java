@@ -99,6 +99,39 @@ public class TestCoverageTests {
         assertEquals("Methode nicht vorhanden", ausgabe);
     }
 
+    //TODO//: Noch ein Test für Nullwerte für die Branches
+    @Test
+    public void verarbeiteDateienImOrdner_KeineDateienImOrdner_Test() {
+
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Rufe die verarbeiteDateienImOrdner-Methode mit dem ungültigen Testfall auf
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises/exercisesEmpty", "mmbü");
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+
+        assertEquals("Keine Dateien im Ordner vorhanden", ausgabe);
+    }
+
+    @Test
+    public void verarbeiteDateienImOrdner_OrdnerNichtVorhanden_Test() {
+
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Rufe die verarbeiteDateienImOrdner-Methode mit dem ungültigen Testfall auf
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercisesEmpty", "mmbü");
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+
+        assertEquals("Kein Ordner vorhanden", ausgabe);
+    }
+
     //Done hat kein Rückgabewert
     @Test
     public void writeToMarkdownTest(){
