@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class WahrheitstabellenReader {
     public static List<String> wahrheitstabelleAusMarkdown(String dateipfad) {
@@ -107,7 +108,7 @@ public class WahrheitstabellenReader {
     }
 
     public static void main(String[] args) {
-        System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
+        //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
         //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
         //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
 
@@ -126,6 +127,8 @@ public class WahrheitstabellenReader {
 
         //aufgabe22b(algorithmen);
 
+        userEingabe(algorithmen);
+
     }
 
     public static void aufgabe22b(Algorithmen algorithmen){
@@ -133,11 +136,209 @@ public class WahrheitstabellenReader {
         System.out.println("Aufgabe 2.2 b)");
         System.out.println("--------------------------------------");
         System.out.println("MCDC: ");
-        writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+        if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))) == false) {
+            writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+        }
         System.out.println("--------------------------------------");
         System.out.println("MMBÜ: ");
-        writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+        if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))) == false) {
+            writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+        }
         System.out.println("--------------------------------------");
 
     }
+
+    public static void userEingabe(Algorithmen algorithmen){
+
+        Scanner eingabewert = new Scanner(System.in);
+        System.out.println("--------------------------------------");
+        System.out.println("Geben Sie die entsprechende Zahl ein für die Aktion, die Sie ausführen möchten.");
+        System.out.println(" 1 - Ausführen des MMBÜ \n 2 - Ausführen des MCDC \n 3 - Ausführen beider Coverage-Maßen");
+        System.out.print("Geben Sie hier ihre Nummer ein: ");
+        int nummerCoverage = eingabewert.nextInt();
+        System.out.println("--------------------------------------");
+
+        System.out.println("Geben Sie nun an die entsprechende Zahl ein für die Auswahl der Datei, die Sie ausführen möchten");
+        System.out.println(" 1 - Ausführen einer bestimmten Datei aus unserem System " +
+                "\n 2 - Ausführen aller unserer Dateien im System \n 3 - Ausführen Ihrer Datei" +
+                "\n 4 - Ausführen der Aufgabe 2.2 b)");
+        System.out.print("Geben Sie hier ihre Nummer ein: ");
+        int nummerDatei = eingabewert.nextInt();
+        System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+
+        String coverage = eingabeCoverage(nummerCoverage);
+        if(coverage.equals("existiert nicht")){
+            //Endpoint.
+            System.out.println("Sie haben eine falsche Nummer eingegeben. Vorgang wird abgebrochen.");
+        }else{
+            eingabeDatei(coverage, nummerDatei, algorithmen);
+            System.out.println("--------------------------------------");
+            System.out.println("Wählen Sie die nächste Aktion aus."); //neustart //beenden
+            System.out.println(" 1 - Neustart \n 2 - Beenden");
+            System.out.print("Geben Sie hier ihre Nummer ein: ");
+            int nummerAktion = eingabewert.nextInt();
+            if (nummerAktion == 1){
+                userEingabe(algorithmen);
+            }else{
+                System.out.println("--------------------------------------");
+                System.out.println("------------System wird beendet-------------");
+                System.out.println("--------------------------------------");
+            }
+
+        }
+    }
+
+    private static String eingabeCoverage(int nummerCoverage) {
+        String antwort = "existiert nicht";
+
+        switch (nummerCoverage){
+            case 1: antwort = "mmbü"; break;
+            case 2: antwort = "mcdc"; break;
+            case 3: antwort = "beideCoverageMaßen"; break;
+        }
+
+        return antwort;
+    }
+
+    private static void eingabeDatei(String coverage, int nummerDatei, Algorithmen algorithmen){
+
+        Scanner eingabewert = new Scanner(System.in);
+
+        switch(nummerDatei){
+            case 1:
+                System.out.println(" 1 - Ausführen von der Datei ex0.md" +
+                        "\n 2 - Ausführen von der Datei ex1.md" +
+                        "\n 3 - Ausführen von der Datei ex2.md" +
+                        "\n 4 - Ausführen von der Datei ex3.md" +
+                        "\n 5 - Ausführen von der Datei ex4.md" +
+                        "\n 6 - Ausführen von der Datei ex5.md" +
+                        "\n 7 - Ausführen von der Datei ex6.md" +
+                        "\n 8 - Ausführen von der Datei ex7.md" +
+                        "\n 9 - Ausführen von der Datei exercise1.md" +
+                        "\n 10 - Ausführen von der Datei exercise2.md" +
+                        "\n 11 - Ausführen von der Datei exercise22b.md"+
+                        "\n 12 - Ausführen von der Datei leererFehler.md");
+                System.out.print("Geben Sie hier ihre Nummer ein: ");
+                int datei = eingabewert.nextInt();
+                String dateiString = dateiAuswahl(datei);
+                if(dateiString.equals("existiert nicht")){
+                    //Endpoint.
+                    System.out.println("Sie haben eine falsche Nummer eingegeben. Vorgang wird abgebrochen.");
+                }else{
+                    if(coverage.equals("mcdc")){
+                        System.out.println("--------------------------------------");
+                        System.out.println("MCDC " + "der Datei " + dateiString);
+                        if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))) == false){
+                            writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))));
+                        }
+                    }else if(coverage.equals("mmbü")){
+                        System.out.println("--------------------------------------");
+                        System.out.println("MMBÜ " + "der Datei " + dateiString);
+                        if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))) == false) {
+                            writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))));
+                        }
+                    }else if(coverage.equals("beideCoverageMaßen")){
+                        System.out.println("--------------------------------------");
+                        System.out.println("MMBÜ " + "der Datei " + dateiString);
+                        if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))) == false){
+                        writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))));}
+                        System.out.println("--------------------------------------");
+                        System.out.println("MCDC " + "der Datei " + dateiString);
+                        if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))) == false){
+                        writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(dateiString))));}
+                    }
+                }
+                break;
+
+            case 2:
+                if(coverage.equals("beideCoverageMaßen")){
+                    System.out.println("mmbü" + ": "); verarbeiteDateienImOrdner("src/exercises", "mmbü");
+                    System.out.println("mcdc" + ": "); verarbeiteDateienImOrdner("src/exercises", "mcdc");
+                }else {
+                    System.out.println(coverage + ": "); verarbeiteDateienImOrdner("src/exercises", coverage);
+                }
+                break;
+            // "C:/Users/Carina/Desktop/exercise1.md"
+            case 3:
+                System.out.print("Geben Sie Ihre Datei ein: ");
+                String dateiMeins = eingabewert.nextLine();
+
+                if(coverage.equals("mcdc")){
+                    System.out.println("--------------------------------------");
+                    System.out.println("MCDC " + "der Datei " + dateiMeins);
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))) == false){
+                        writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))));
+                    }
+                }else if(coverage.equals("mmbü")){
+                    System.out.println("--------------------------------------");
+                    System.out.println("MMBÜ " + "der Datei " + dateiMeins);
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))) == false) {
+                        writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))));
+                    }
+                }else if(coverage.equals("beideCoverageMaßen")){
+                    System.out.println("--------------------------------------");
+                    System.out.println("MMBÜ " + "der Datei " + dateiMeins);
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))) == false){
+                        writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))));}
+                    System.out.println("--------------------------------------");
+                    System.out.println("MCDC " + "der Datei " + dateiMeins);
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))) == false){
+                        writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown(dateiMeins))));}
+                }
+                break;
+
+            case 4: System.out.println("Aufgabe 2.2 b)");
+                if(coverage.equals("mcdc")){
+                    System.out.println("--------------------------------------");
+                    System.out.println("MCDC " + "der Datei " + "src/exercises/exercise22b.md");
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))) == false) {
+                        writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+                    }
+                }else if(coverage.equals("mmbü")){
+                    System.out.println("--------------------------------------");
+                    System.out.println("MMBÜ " + "der Datei " + "src/exercises/exercise22b.md");
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))) == false) {
+                        writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+                    }
+                }else if(coverage.equals("beideCoverageMaßen")){
+                    System.out.println("--------------------------------------");
+                    System.out.println("MCDC: ");
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))) == false) {
+                        writeToMarkdown(algorithmen.mcdc(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+                    }
+                    System.out.println("--------------------------------------");
+                    System.out.println("MMBÜ: ");
+                    if(uberpruefeObFehlerhaft(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))) == false) {
+                        writeToMarkdown(algorithmen.mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
+                    }
+                    System.out.println("--------------------------------------");break;
+                }
+
+            default: break;
+        }
+    }
+
+    private static String dateiAuswahl(int datei) {
+        String antwort = "existiert nicht";
+
+        switch (datei) {
+            case 1: antwort = "src/exercises/ex0.md"; break;
+            case 2: antwort = "src/exercises/ex1.md"; break;
+            case 3: antwort = "src/exercises/ex2.md"; break;
+            case 4: antwort = "src/exercises/ex3.md"; break;
+            case 5: antwort = "src/exercises/ex4.md"; break;
+            case 6: antwort = "src/exercises/ex5.md"; break;
+            case 7: antwort = "src/exercises/ex6.md"; break;
+            case 8: antwort = "src/exercises/ex7.md"; break;
+            case 9: antwort = "src/exercises/exercise1.md"; break;
+            case 10: antwort = "src/exercises/exercise2.md"; break;
+            case 11: antwort = "src/exercises/exercise22b.md"; break;
+            case 12: antwort = "src/exercises/leererFehler.md"; break;
+        }
+
+        return antwort;
+    }
+
+
 }
