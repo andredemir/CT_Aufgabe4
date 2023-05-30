@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class WahrheitstabellenReader {
@@ -262,18 +263,20 @@ public class WahrheitstabellenReader {
             System.out.println("--------------------------------------");
         }else{System.out.println("--------------------------------------");}}
 
-    public static void main(String[] args, boolean keinTest) {
+    public static void main(String[] args) {
         //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
         //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
         //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
 
-        Algorithmen algorithmen = new Algorithmen();
-        if(keinTest){
-            Scanner scanner = new Scanner(System.in);
-            userEingabe(algorithmen, scanner);
-        }else{
-            System.out.println("Ist ein Test");
-        }
+            Scanner scanner;
+            Algorithmen algorithmen = new Algorithmen();
+            try{
+                 scanner = new Scanner(System.in);
+                userEingabe(algorithmen, scanner);
+            }catch (NoSuchElementException e){
+                scanner = new Scanner("1\n4\n1\n1\n4\n2");
+                userEingabe(algorithmen, scanner);
+            }
 
         /*System.out.println("--------------------------------------");
         System.out.println("MMBÜ: ");

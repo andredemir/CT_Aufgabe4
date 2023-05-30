@@ -124,7 +124,7 @@ public class TestCoverageTests {
         System.setOut(new PrintStream(outputStream));
 
         // Rufe die verarbeiteDateienImOrdner-Methode mit dem ungültigen Testfall auf
-        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercisesEmpty", "mmbü");
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises/leer", "mmbü");
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
@@ -142,7 +142,7 @@ public class TestCoverageTests {
 
   @Test
   public void mainTest(){
-      WahrheitstabellenReader.main(new String[]{}, false);
+      WahrheitstabellenReader.main(new String[]{});
   }
 
     @Test
