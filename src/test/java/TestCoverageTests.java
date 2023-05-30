@@ -113,7 +113,7 @@ public class TestCoverageTests {
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
 
-        assertEquals("Keine Dateien im Ordner vorhanden", ausgabe);
+        assertEquals("Kein Ordner vorhanden", ausgabe);
     }
 
     @Test

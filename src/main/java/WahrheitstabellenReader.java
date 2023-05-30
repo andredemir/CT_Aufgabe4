@@ -155,11 +155,11 @@ public class WahrheitstabellenReader {
 
     public static String eingabeCoverage(int nummerCoverage) {
         String antwort = "existiert nicht";
-        switch (nummerCoverage){
-            case 1: antwort = "mmbü"; break;
-            case 2: antwort = "mcdc"; break;
-            case 3: antwort = "beideCoverageMaßen";break;
-            default:  System.out.println("Nicht verfügbar");
+        switch (nummerCoverage) {
+            case 1 -> antwort = "mmbü";
+            case 2 -> antwort = "mcdc";
+            case 3 -> antwort = "beideCoverageMaßen";
+            default -> System.out.println("Nicht verfügbar");
         }
         return antwort;}
 
