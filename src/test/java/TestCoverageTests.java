@@ -124,7 +124,7 @@ public class TestCoverageTests {
         System.setOut(new PrintStream(outputStream));
 
         // Rufe die verarbeiteDateienImOrdner-Methode mit dem ungültigen Testfall auf
-        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercises/leer", "mmbü");
+        WahrheitstabellenReader.verarbeiteDateienImOrdner("src/exercisesEmpty", "mmbü");
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
@@ -140,10 +140,11 @@ public class TestCoverageTests {
         WahrheitstabellenReader.writeToMarkdown(algorithmen.mcdc(WahrheitstabellenReader.create2DArrayList(WahrheitstabellenReader.wahrheitstabelleAusMarkdown("src/exercises/exercise22b.md"))));
     }
 
-  @Test
-  public void mainTest(){
-      WahrheitstabellenReader.main(new String[]{});
-  }
+    @Test
+    public void mainTest(){
+        WahrheitstabellenReader.main(new String[]{});
+    }
+
 
     @Test
     public void userEingabeTestNeustart(){
