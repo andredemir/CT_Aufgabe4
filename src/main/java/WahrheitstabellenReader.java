@@ -130,7 +130,7 @@ public class WahrheitstabellenReader {
         int nummerCoverage = eingabewert.nextInt();
         String coverage = eingabeCoverage(nummerCoverage);
         if(coverage.equals("existiert nicht")){
-            System.out.println("--------------------------------------\nSie haben etwas Falsches eingegeben. Vorgang wird abgebrochen.\n--------------------------------------");
+            System.out.println("--------------------------------------\nSie haben etwas Falsches für die Coverage Maße eingegeben. Vorgang wird abgebrochen.\n--------------------------------------");
         }else {
             System.out.println("--------------------------------------" +
                     "\nGeben Sie nun an die entsprechende Zahl ein für die Auswahl der Datei, die Sie ausführen möchten" +
@@ -150,6 +150,7 @@ public class WahrheitstabellenReader {
             int nummerAktion = eingabewert.nextInt();
             if (nummerAktion == 1){
                 userEingabe(algorithmen, eingabewert);
+                System.out.println("--------------------------------------\n------System wird neu gestartet-------\n--------------------------------------");
             }else{
                 System.out.println("--------------------------------------\n---------System wird beendet----------\n--------------------------------------");
             }}
@@ -183,17 +184,19 @@ public class WahrheitstabellenReader {
                 int datei = eingabewert.nextInt();
                 String dateiString = dateiAuswahl(datei);
                 if(dateiString.equals("existiert nicht")){
-                    System.out.println("Sie haben etwas Falsches eingegeben. Vorgang wird abgebrochen.");
+                    System.out.println("Sie haben etwas Falsches für die Dateiauswahl im System eingegeben. Vorgang wird abgebrochen.");
                 }else{
                     einzelneDatei(dateiString, coverage, algorithmen);}
                 break;
             case 2:
                 if(coverage.equals("beideCoverageMaßen")){
+                    System.out.println("Ausführen aller unserer Dateien im System mit mmbü und mcdc");
                     System.out.println("mmbü" + ": ");
                     verarbeiteDateienImOrdner("src/exercises", "mmbü");
                     System.out.println("mcdc" + ": ");
                     verarbeiteDateienImOrdner("src/exercises", "mcdc");
                 }else {
+                    System.out.println("Ausführen aller unserer Dateien im System mit " + coverage);
                     System.out.println(coverage + ": ");
                     verarbeiteDateienImOrdner("src/exercises", coverage);}
                 break;
@@ -205,7 +208,7 @@ public class WahrheitstabellenReader {
                 if(file.exists()){
                     einzelneDatei(dateiMeins, coverage, algorithmen);
                 }else{
-                    System.out.println("--------------------------------------\nSie haben etwas Falsches eingegeben. Vorgang wird abgebrochen.\n--------------------------------------");
+                    System.out.println("--------------------------------------\nSie haben etwas Falsches für die Datei eingegeben. Vorgang wird abgebrochen.\n--------------------------------------");
                 }
                 break;
             case 4: System.out.println("Aufgabe 2.2 b)");
@@ -261,12 +264,16 @@ public class WahrheitstabellenReader {
                 System.out.println("--------------------------------------");
             }
             System.out.println("--------------------------------------");
-        }else{System.out.println("--------------------------------------");}}
+        }else{System.out.println("--------------------uff------------------");}}
 
     public static void main(String[] args) {
         //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));
         //System.out.println(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))));
         //writeToMarkdown(mmbue(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/exercise2.md"))), null);
+
+        System.out.println("--------------------------------------");
+        System.out.println("-----------Starte-System--------------");
+        System.out.println("--------------------------------------");
 
             Scanner scanner;
             Algorithmen algorithmen = new Algorithmen();

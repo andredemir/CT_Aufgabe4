@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCoverageTests {
 
@@ -145,136 +146,275 @@ public class TestCoverageTests {
         WahrheitstabellenReader.main(new String[]{});
     }
 
-
     @Test
     public void userEingabeTestNeustart(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n4\n1\n1\n4\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("System wird neu gestartet"));
+
     }
   @Test
   public void userEingabeTestFehlerhafteEingabeCoverage(){
+      // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      System.setOut(new PrintStream(outputStream));
+
       Algorithmen algorithmen = new Algorithmen();
       Scanner scanner = new Scanner("6\n2"); //beenden
       WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-      //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+      // Erfasse die Ausgabe
+      String ausgabe = outputStream.toString().trim();
+      assertTrue(ausgabe.contains("Sie haben etwas Falsches für die Coverage Maße eingegeben."));
   }
 
     @Test
     public void userEingabeTestFehlerhafteEingabeDateiImSystem(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n1\n13\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Sie haben etwas Falsches für die Dateiauswahl im System eingegeben."));
     }
 
     @Test
     public void userEingabeTestEinzelneDateiAufrufBeiDateiImSystem(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n1\n1\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains(" 1 - Ausführen von der Datei ex0.md"));
     }
 
     @Test
     public void userEingabeTestMMBUE(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n4\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MMBÜ der Datei src/exercises/exercise22b.md"));
     }
 
     @Test
     public void userEingabeTestMCDC(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("2\n4\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MCDC der Datei src/exercises/exercise22b.md"));
+
     }
 
     @Test
     public void userEingabeTestBeideCoverageMaße(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("3\n4\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MCDC der Datei src/exercises/exercise22b.md") && ausgabe.contains("MMBÜ der Datei src/exercises/exercise22b.md") );
     }
 
     @Test
     public void userEingabeTestBeideCoverageMaßeMitAllenDateienImSystem(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("3\n2\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Ausführen aller unserer Dateien im System mit mmbü und mcdc") );
     }
 
     @Test
-    public void userEingabeTestCoverageMaßeMitAllenDateienImSystem(){
+    public void userEingabeTestCoverageMaßeMitAllenDateienImSystemMitEinerCoverage(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n2\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Ausführen aller unserer Dateien im System mit mmbü") );
     }
 
     @Test
     public void userEingabeTestCoverageMaßeMitEigenerDatei(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
-        Scanner scanner = new Scanner("1\n3\nC:/Users/Carina/Desktop/exercise1.md\n2"); //beenden
+        Scanner scanner = new Scanner("1\n3\nsrc/exercises/exercise1.md\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MMBÜ der Datei src/exercises/exercise1.md") );
     }
 
     @Test
     public void userEingabeTestCoverageMaßeMitEigenerFehlerhafterDatei(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n3\nC:/Users/Carina/Fesktop/exercise1.md\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Sie haben etwas Falsches für die Datei eingegeben.") );
     }
 
     @Test
     public void userEingabeTesteinzelneDateiFehlerMMBUe(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("1\n1\n4\n2"); //beenden
         WahrheitstabellenReader.userEingabe(algorithmen, scanner);
-        //todo Überprüfen nach Sachen die auf der console ausgegeben worden sind
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Datei fehlerhaft: Falsche Werte") );
     }
 
+    //todo
     @Test
     public void eingabeCoverageDefault(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         WahrheitstabellenReader.eingabeCoverage(7);
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Nicht verfügbar") );
     }
 
+    //todo
     @Test
     public void eingabeDateiDefault(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         Scanner scanner = new Scanner("");
         WahrheitstabellenReader.eingabeDatei("mmbü",7, algorithmen,scanner);
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("Nicht verfügbar") );
     }
 
+    //todo
     @Test
-    public void einzelneDateimmbUE(){
+    public void einzelneDateiMMBUE(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","mmbü", algorithmen);
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex2.md","mmbü", algorithmen);
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MMBÜ der Datei src/exercises/ex2.md") );
     }
 
     @Test
     public void einzelneDateiMCDC(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","mcdc", algorithmen);
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex2.md","mcdc", algorithmen);
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MCDC der Datei src/exercises/ex2.md") );
     }
 
+    //todo
     @Test
     public void einzelneDateiBeide(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","beideCoverageMaßen", algorithmen);
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex2.md","beideCoverageMaßen", algorithmen);
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("MCDC der Datei src/exercises/ex2.md") && ausgabe.contains("MMBÜ der Datei src/exercises/ex2.md") );
     }
 
+    //todo
     @Test
     public void einzelneDateiNichts(){
+        // Leite die Standardausgabe um, um die Ausgabe zu erfassen
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         Algorithmen algorithmen = new Algorithmen();
         WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","uff", algorithmen);
+
+        // Erfasse die Ausgabe
+        String ausgabe = outputStream.toString().trim();
+        assertTrue(ausgabe.contains("uff") );
     }
 
     @Test
@@ -296,6 +436,7 @@ public class TestCoverageTests {
     public void userEingabeTestDateiAuswahl4(){
         String datei = WahrheitstabellenReader.dateiAuswahl(4);
         assertEquals("src/exercises/ex3.md",datei);
+
     }
 
     @Test
