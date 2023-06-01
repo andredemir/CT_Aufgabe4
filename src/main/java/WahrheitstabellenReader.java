@@ -263,8 +263,10 @@ public class WahrheitstabellenReader {
             }else{
                 System.out.println("--------------------------------------");
             }
-            System.out.println("--------------------------------------");
-        }else{System.out.println("--------------------uff------------------");}}
+        }else {
+            System.out.println("--------------------falsche coverage------------------");
+        }
+    }
 
     public static void main(String[] args) {
         //System.out.println(create2DArrayList(wahrheitstabelleAusMarkdown("src/exercises/ex0.md")));

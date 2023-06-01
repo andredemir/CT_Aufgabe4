@@ -114,7 +114,7 @@ public class TestCoverageTests {
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
 
-        assertEquals("Kein Ordner vorhanden", ausgabe);
+        assertEquals("Keine Dateien im Ordner vorhanden", ausgabe);
     }
 
     @Test
@@ -366,11 +366,11 @@ public class TestCoverageTests {
         System.setOut(new PrintStream(outputStream));
 
         Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.einzelneDatei("src/exercises/ex2.md","mmbü", algorithmen);
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","mmbü", algorithmen);
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
-        assertTrue(ausgabe.contains("MMBÜ der Datei src/exercises/ex2.md") );
+        assertTrue(ausgabe.contains("Datei fehlerhaft: Falsche Werte") );
     }
 
     @Test
@@ -380,11 +380,11 @@ public class TestCoverageTests {
         System.setOut(new PrintStream(outputStream));
 
         Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.einzelneDatei("src/exercises/ex2.md","mcdc", algorithmen);
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","mcdc", algorithmen);
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
-        assertTrue(ausgabe.contains("MCDC der Datei src/exercises/ex2.md") );
+        assertTrue(ausgabe.contains("Datei fehlerhaft: Falsche Werte") );
     }
 
     //todo
@@ -395,11 +395,11 @@ public class TestCoverageTests {
         System.setOut(new PrintStream(outputStream));
 
         Algorithmen algorithmen = new Algorithmen();
-        WahrheitstabellenReader.einzelneDatei("src/exercises/ex2.md","beideCoverageMaßen", algorithmen);
+        WahrheitstabellenReader.einzelneDatei("src/exercises/ex3.md","beideCoverageMaßen", algorithmen);
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
-        assertTrue(ausgabe.contains("MCDC der Datei src/exercises/ex2.md") && ausgabe.contains("MMBÜ der Datei src/exercises/ex2.md") );
+        assertTrue(ausgabe.contains("Datei fehlerhaft: Falsche Werte") && ausgabe.contains("MMBÜ der Datei src/exercises/ex3.md") );
     }
 
     //todo
@@ -414,7 +414,7 @@ public class TestCoverageTests {
 
         // Erfasse die Ausgabe
         String ausgabe = outputStream.toString().trim();
-        assertTrue(ausgabe.contains("uff") );
+        assertTrue(ausgabe.contains("falsche coverage") );
     }
 
     @Test
